@@ -15,6 +15,7 @@ form.addEventListener("submit", (e) => {
 
 
 function validate(form) {
+  
   let inputs = document.querySelectorAll("input");
   inputs.forEach((input) => {
     validateField(input);
@@ -28,13 +29,18 @@ function validateField(field) {
   const value = field.value;
   const type = field.type;
 
+  console.log( inputRegex.test(value));
+  
+
     if (!value) {
     setFieldError(field);
-    } else if (type == "email" ) {
-        (emailRegex.test(value))? setFieldSuccess(field) : setFieldError(field);
-    } else if (type == "text" || value.length() >= 10 ) {
-        inputRegex.test(value)? setFieldSuccess(field) : setFieldError(field);
-    }
+    } else if (type == "email"  &&  !emailRegex.test(value)) {
+          setFieldError(field);
+    } else if (type == "text" && value.length <= 10 && !inputRegex.test(value)) {
+        setFieldError(field); 
+      } else {
+        setFieldSuccess(field);
+      }
 }
 
 function setFieldError(field) {
