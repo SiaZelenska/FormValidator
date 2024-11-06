@@ -28,9 +28,13 @@ function validateField(field) {
   const value = field.value;
   const type = field.type;
 
-  if (!value) {
+    if (!value) {
     setFieldError(field);
-  }
+    } else if (type == "email" ) {
+        (emailRegex.test(value))? setFieldSuccess(field) : setFieldError(field);
+    } else if (type == "text" || value.length() >= 10 ) {
+        inputRegex.test(value)? setFieldSuccess(field) : setFieldError(field);
+    }
 }
 
 function setFieldError(field) {
